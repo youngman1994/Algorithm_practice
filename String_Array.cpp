@@ -1,4 +1,4 @@
-// String_Array.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+// String_Array.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 #pragma  warning (disable:4996) 
 #include "stdafx.h"
@@ -8,11 +8,11 @@
 #include<map>
 #include<bitset>
 using namespace std;
-//µÚÒ»Ìâ²éÕÒ×Ö·û´®
+//ç¬¬ä¸€é¢˜æŸ¥æ‰¾å­—ç¬¦ä¸²
 int strStr(string source, string target);
 const char* strStr2_0(const char* s,const char* t);
-//µÚ¶şÀı×Ó£ºÅĞ¶Ï×Ö·û´®ÖĞËùÓĞ×Ö·ûÊÇ·ñµÄÎ¨Ò»µÄ
-//¿¼ÂÇÓÃhash table ºÍbitset
+//ç¬¬äºŒä¾‹å­ï¼šåˆ¤æ–­å­—ç¬¦ä¸²ä¸­æ‰€æœ‰å­—ç¬¦æ˜¯å¦çš„å”¯ä¸€çš„
+//è€ƒè™‘ç”¨hash table å’Œbitset
 void JudegeStr();
 
 int main()
@@ -22,10 +22,10 @@ int main()
 	B = "ds";
 	int r = strStr(A,B);
 	cout << r << endl;
-	cout << "AµÄ´óĞ¡£º" << A.size() << " "
-		<< "AµÄ³¤¶È£º" << A.length() << endl
-		<< "BµÄ´óĞ¡£º" << B.size() << " "
-		<< "BBµÄ³¤¶È£º" << B.length() << endl;//stringµÄsize()ºÍlength()·½·¨Ã»ÓĞ²î±ğ
+	cout << "Açš„å¤§å°ï¼š" << A.size() << " "
+		<< "Açš„é•¿åº¦ï¼š" << A.length() << endl
+		<< "Bçš„å¤§å°ï¼š" << B.size() << " "
+		<< "BBçš„é•¿åº¦ï¼š" << B.length() << endl;//stringçš„size()å’Œlength()æ–¹æ³•æ²¡æœ‰å·®åˆ«
 	JudegeStr();
 	const char* a = "abcd";
 	const char* b = "";
@@ -33,12 +33,12 @@ int main()
 	cout << "result=" << result << endl;
     return 0;
 }
-//ÓÃchar*ÊµÏÖ
+//ç”¨char*å®ç°
 const char* strStr2_0(const char* s, const char* t) {
 	if (!*t) return s;
 	const char* p1 = s;
 	while (*p1) {
-		const char* p1Begin = p1, *p2 = t;//³õÊ¼»¯Î»ÖÃ
+		const char* p1Begin = p1, *p2 = t;//åˆå§‹åŒ–ä½ç½®
 		while (*p1 && *p2 && *p1 == *p2) {
 			p1++;
 			p2++;
@@ -49,16 +49,16 @@ const char* strStr2_0(const char* s, const char* t) {
 	return NULL;
 }
 
-//ÓÃstringÃ»ÊµÏÖ,µÚ¶ş´ÎÊµÏÖ
+//ç”¨stringæ²¡å®ç°,ç¬¬äºŒæ¬¡å®ç°
 int strStr(string source, string target) {
 	if (source.size() < target.size() || target.size() == 0)
 		return -1;
-	int length = source.size() - target.size();//ÒÆ¶¯µÄ³¤¶È
+	int length = source.size() - target.size();//ç§»åŠ¨çš„é•¿åº¦
 	string::iterator it = source.begin();
 	int i,j;
 	for (i = 0; i <= length; i++, it++) {
 		string::iterator temp = it;
-		for (j = 0; j < target.size(); j++, temp++) {//×¢ÒâÕâÀï½áÊøµÄÊ±ºòjºÍtemp»¹Òª¼ÓÒ»
+		for (j = 0; j < target.size(); j++, temp++) {//æ³¨æ„è¿™é‡Œç»“æŸçš„æ—¶å€™jå’Œtempè¿˜è¦åŠ ä¸€
 			if (*temp != target[j]) break;
 		}
 		if (j>1 && *(temp-1) == target[j-1] && j == target.size())
@@ -69,16 +69,16 @@ int strStr(string source, string target) {
 
 void JudegeStr(){
 	char* str = new char[20];
-	cin.get(str, 20).get();//´«Èë×Ö·û´®
-	map<char, int> hashTable;//ÓÃ¹şÏ£±íÊµÏÖ
-	bitset<256> *BitSet = new bitset<256>;//ÓÃÎ»¼¯ÊµÏÖ
+	cin.get(str, 20).get();//ä¼ å…¥å­—ç¬¦ä¸²
+	map<char, int> hashTable;//ç”¨å“ˆå¸Œè¡¨å®ç°ç»Ÿè®¡ä¸€ä¸ªå…ƒç´ é›†ä¸­å…ƒç´ å‡ºç°çš„æ¬¡æ•°
+	bitset<256> *BitSet = new bitset<256>;//ç”¨ä½é›†å®ç°
 	BitSet->reset();
 	for (int i = 0; i < strlen(str); i++) {
 		hashTable[str[i]] += 1;
-		if ((*BitSet)[int(str[i])]==0)//bitsetµü´úÆ÷Ã»ÓĞ*ÖØÔØ£¬¼´²»ÄÜÖ±½ÓÓÃµü´úÆ÷Ë÷Òı£¬¿ÉÒÔÓÃÒıÓÃÖØÔØÁË[]
+		if ((*BitSet)[int(str[i])]==0)//bitsetè¿­ä»£å™¨æ²¡æœ‰*é‡è½½ï¼Œå³ä¸èƒ½ç›´æ¥ç”¨è¿­ä»£å™¨ç´¢å¼•ï¼Œå¯ä»¥ç”¨å¼•ç”¨é‡è½½äº†[]
 			(*BitSet)[int(str[i])] = 1;
 	}
-	map<char, int>::iterator it = hashTable.begin();//¹ØÁªÈİÆ÷ÓĞµü´úÆ÷£¬ÒÑ¾­ÅÅºÃĞò
+	map<char, int>::iterator it = hashTable.begin();//å…³è”å®¹å™¨æœ‰è¿­ä»£å™¨ï¼Œå·²ç»æ’å¥½åº
 	for (; it != hashTable.end(); it++) {
 		cout << it->first << " " << it->second << endl;
 	}
