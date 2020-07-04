@@ -14,9 +14,14 @@ const char* strStr2_0(const char* s,const char* t);
 //第二例子：判断字符串中所有字符是否的唯一的
 //考虑用hash table 和bitset
 void JudegeStr();
+//第三个例子：求一个数组中连续数字的最大长度
+int MaxStrLen(int* arr,int n);//要加入数组的长度
 
 int main()
 {
+	int array[] = { 31,6,32,1,3,2 };
+	int nums = MaxStrLen(array,7);
+	cout << "最大连续长度为：" << nums << endl;
 	string A, B;
 	A = "sadgads";
 	B = "ds";
@@ -87,4 +92,20 @@ void JudegeStr(){
 			cout << char(i) << endl;
 	}
 
+}
+int MaxStrLen(int* arr,int n) {
+	vector<int> temp(arr,arr+n);
+	sort(temp.begin(), temp.end());//这里通过迭代器使得容器与算法进行沟通，排序
+	vector<int>::iterator it = temp.begin();
+	it++;//后一个数与前一个数比较
+	int num = 1, max_num = 0;
+	for (; it != temp.end(); it++) {
+		if ((*it)-1 == *(it - 1))
+			num++;
+		else {
+			max_num = (max_num > num) ? max_num : num;
+			num = 1;
+		}
+	}
+	return max_num;
 }
