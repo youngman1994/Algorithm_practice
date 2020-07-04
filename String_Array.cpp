@@ -16,9 +16,13 @@ const char* strStr2_0(const char* s,const char* t);
 void JudegeStr();
 //第三个例子：求一个数组中连续数字的最大长度
 int MaxStrLen(int* arr,int n);//要加入数组的长度
+//第四个例子：reverse，将字符串中每个单词反转
+void StrReverse(const string&);
 
 int main()
 {
+	string SReverse = "I have 36 books,40 pens 2.";
+	StrReverse(SReverse);
 	int array[] = { 31,6,32,1,3,2 };
 	int nums = MaxStrLen(array,7);
 	cout << "最大连续长度为：" << nums << endl;
@@ -109,3 +113,28 @@ int MaxStrLen(int* arr,int n) {
 	}
 	return max_num;
 }
+void StrReverse(const string& s) {
+	string str(s);//因为输入不可变，所以深拷贝一个对象
+	string::iterator it = str.begin();
+	for (int i = 0; it != str.end();i++, it++) {
+		if (isdigit(*it) != 0)
+			i = 0;
+		else if ((*it)==' ' || (*it) == ',' || (*it) == '.') {//string中的空格怎么表示，
+			if (i > 1) {
+					string temp(it - i, it);
+					auto it1 = temp.begin();
+					for (int j = 1; it1 != temp.end() && j <= i; it1++, j++) {
+						*(it - j) = *it1;
+				}
+			}
+			i = 0;
+		}
+	}
+	for (auto elem : str)//如何判断纯数字，isdigit()不为0就是数字,同理isalpha()判断字母，不为0就是字母。
+		cout << elem;
+	cout << endl;
+
+}
+/*String相关问题的一些处理技巧
+通常，纯粹字符串操作难度不大，但是实现起来可能比较麻烦，edge case比较多。例如把字符变成数字，把数字变成字符等等。
+*/
